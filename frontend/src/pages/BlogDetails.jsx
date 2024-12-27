@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addComment, getBlogDetails, resetMessages } from "../store/Action/blogAction";
+import {
+  addComment,
+  getBlogDetails,
+  resetMessages,
+} from "../store/Action/blogAction";
 
 const BlogDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { blogData, blogSucessMessage, blogErrorMessage } = useSelector((state) => state.Blog);
+  const { blogData, blogSucessMessage, blogErrorMessage } = useSelector(
+    (state) => state.Blog
+  );
   const { currentUser } = useSelector((state) => state.Auth);
 
   const [comment, setComment] = useState("");
@@ -35,7 +41,7 @@ const BlogDetails = () => {
       setComment("");
       setShowAddCommentForm(false);
       dispatch(resetMessages());
-    };
+    }
     if (blogErrorMessage) {
       window.alert(blogErrorMessage);
       dispatch(resetMessages());
@@ -49,7 +55,9 @@ const BlogDetails = () => {
       <h1 className="blog-title">{blogData.title}</h1>
       <p className="blog-content">{blogData.content}</p>
 
-      <button className="add-comment-btn" onClick={handleAddComment}>Add Comment</button>
+      <button className="add-comment-btn" onClick={handleAddComment}>
+        Add Comment
+      </button>
       {showAddCommentForm && (
         <form onSubmit={handleSubmitComment} className="comment-form">
           <textarea
@@ -59,7 +67,9 @@ const BlogDetails = () => {
             required
             onChange={(e) => setComment(e.target.value)}
           />
-          <button type="submit" className="submit-comment-btn">Submit Comment</button>
+          <button type="submit" className="submit-comment-btn">
+            Submit Comment
+          </button>
         </form>
       )}
 
@@ -73,9 +83,16 @@ const BlogDetails = () => {
             blogData.comments.map((comment) => (
               <li key={comment.id} className="comment-item">
                 <p className="comment-content">
-                  {comment.author.name || ""}: {comment.content}
+                  <span style={{fontWeight:"bold",color:"blue"}}>{comment.author.name || ""}:</span> {comment.content}
                 </p>
-                <span className="comment-date">{comment.createdAt}</span>
+                <span className="comment-date">
+                  {" "}
+                  {new Date(comment.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
               </li>
             ))}
         </ul>

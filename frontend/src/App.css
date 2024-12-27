@@ -292,6 +292,11 @@
   padding: 8px;
   border: 1px solid #000;
   border-radius: 4px;
+  width: 100%;
+}
+
+.form-textarea{
+  height: 10rem;
 }
 
 .form-submit-button {
@@ -334,12 +339,12 @@
 }
 
 .blog-read-more {
-  color: #555;
+  color: #44d4fc;
   text-decoration: none;
 }
 
 .blog-read-more:hover {
-  color: #000;
+  color: blue;
   text-decoration: underline;
 }
 
@@ -480,6 +485,6 @@
 }
 
 .comment-date {
-  color: wheat;
+  color: rgb(224, 155, 25);
   font-size: 0.9rem;
 }
