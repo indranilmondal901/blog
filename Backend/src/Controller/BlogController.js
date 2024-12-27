@@ -32,10 +32,10 @@ const AddBlog = async (req, res, next) => {
     });
 
     await blog.save();
-
+    let blogData = await BlogModel.findOne({_id: blog._id}).populate("author");
     return res.status(201).send({
       message: "Blog created successfully!",
-      blog,
+      blog: blogData,
     });
   } catch (error) {
     req.error = error;
@@ -88,14 +88,15 @@ console.log(blogId);
 /* Delete Blog */
 const DeleteBlog = async (req, res, next) => {
   try {
-    const { blogId } = req.body;
-
+    const { blogId } = req.params;
+console.log(blogId);
     // Check if blog exists
-    const { status, message } = await IsBlogExist(blogId);
-    if (!status) {
+    const blog = await BlogModel.findOne({ _id: blogId });
+
+    if(!blog){
       return res.status(404).send({
-        message: message,
-      });
+        message:"Blog not found"
+      })
     }
 
     // Delete associated comments
@@ -146,7 +147,6 @@ const UpdateBlog = async (req, res, next) => {
 const AddComment = async (req, res, next) => {
   try {
     const { blogId, authorId, content } = req.body;
-console.log(149,blogId, authorId, content);
     // Check if blog exists
     const blog = await BlogModel.findOne({_id:blogId});
 

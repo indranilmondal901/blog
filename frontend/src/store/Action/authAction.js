@@ -56,7 +56,6 @@ export const LoginAction = (credentials) => {
       const { token, user } = response.data;
 
       localStorage.setItem('token', token);
-      localStorage.setItem('user', user);
 
       dispatch({
         type: LOGIN_SUCCESS,
@@ -86,7 +85,6 @@ export const LogoutAction = () => {
   return async (dispatch) => {
     try {
       localStorage.removeItem('token');
-      localStorage.removeItem('userId');
 
       dispatch({
         type: LOGOUT_SUCCESS,

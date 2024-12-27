@@ -13,7 +13,7 @@ const RegisterPage = () => {
   });
 
   const dispatch = useDispatch();
-  const { authSuccessMessage, authErrorMessage } = useSelector(
+  const { regSuccessMessage, authErrorMessage } = useSelector(
     (state) => state.Auth
   );
 
@@ -36,7 +36,7 @@ const RegisterPage = () => {
   };
 
   useEffect(() => {
-    if (authSuccessMessage) {
+    if (regSuccessMessage) {
       ClearMsg();
       setFormData({
         name: "",
@@ -53,7 +53,7 @@ const RegisterPage = () => {
         password: "",
       });
     }
-  }, [authSuccessMessage, authErrorMessage]);
+  }, [regSuccessMessage, authErrorMessage]);
 
   return (
     <div className="register-container">
@@ -96,8 +96,8 @@ const RegisterPage = () => {
           Register
         </button>
       </form>
-      {authSuccessMessage && (
-        <p className="success-message">{authSuccessMessage}</p>
+      {regSuccessMessage && (
+        <p className="success-message">{regSuccessMessage}</p>
       )}
       {authErrorMessage && <p className="error-message">{authErrorMessage}</p>}
       <div className="login-redirect">

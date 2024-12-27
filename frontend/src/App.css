@@ -1,13 +1,54 @@
-/* RegisterPage Component Styles */
+/* Header Styles */
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  color: #000;
+/* Header Container */
+.header {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #333;
 }
 
+/* Header Content */
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Username Section */
+.header-username {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.header-username span {
+  color: #ffcc00;
+}
+
+/* Logout Button */
+.header-logout-button {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.header-logout-button:hover {
+  background-color: #cc0000;
+}
+
+
+
+
+
+/* RegisterPage Component Styles */
 /* Container */
 .register-container {
   max-width: 400px;
@@ -100,15 +141,6 @@ body {
 
 
 /* LoginPage Component Styles */
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  color: #000;
-}
-
 /* Container */
 .login-container {
   max-width: 400px;
@@ -175,18 +207,8 @@ body {
 
 
 
-
 /* BlogList Component Styles */
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #fff;
-  color: #000;
-  margin: 0;
-  padding: 0;
-}
-
-/* Container */
+/* Blog Container */
 .blog-container {
   max-width: 800px;
   margin: 50px auto;
@@ -195,15 +217,39 @@ body {
   border-radius: 8px;
 }
 
-/* Titles */
+/* Blog Title */
 .blog-title {
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
-.form-title {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
+/* Controls */
+.blog-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.blog-search {
+  flex-grow: 1;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.blog-sort-button {
+  background-color: #000;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.blog-sort-button:hover {
+  background-color: #333;
 }
 
 /* Toggle Button */
@@ -215,14 +261,13 @@ body {
   border-radius: 4px;
   cursor: pointer;
   margin-bottom: 20px;
-  font-size: 1rem;
 }
 
 .blog-toggle-button:hover {
   background-color: #333;
 }
 
-/* Form */
+/* Blog Form */
 .blog-form-container {
   margin-bottom: 30px;
 }
@@ -239,15 +284,12 @@ body {
 }
 
 .form-label {
-  font-size: 1rem;
   margin-bottom: 5px;
 }
 
 .form-input,
 .form-textarea {
-  width: 100%;
   padding: 8px;
-  font-size: 1rem;
   border: 1px solid #000;
   border-radius: 4px;
 }
@@ -255,7 +297,7 @@ body {
 .form-submit-button {
   background-color: #000;
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -269,7 +311,6 @@ body {
 .blog-list {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .blog-item {
@@ -279,7 +320,6 @@ body {
 
 .blog-item-title {
   font-size: 1.2rem;
-  margin: 0;
 }
 
 .blog-item-author {
@@ -287,15 +327,35 @@ body {
   margin: 5px 0;
 }
 
+.blog-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 .blog-read-more {
-  color: rgb(148, 148, 215);
+  color: #555;
   text-decoration: none;
-  font-size: 1rem;
 }
 
 .blog-read-more:hover {
+  color: #000;
   text-decoration: underline;
 }
+
+.blog-delete-button {
+  background-color: red;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.blog-delete-button:hover {
+  background-color: darkred;
+}
+
 
 
 

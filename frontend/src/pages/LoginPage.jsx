@@ -79,14 +79,22 @@ const LoginPage = () => {
             className="form-input"
           />
         </div>
-        <button type="submit" className="login-button">Login</button>
+        <button type="submit" className="login-button">
+          Login
+        </button>
       </form>
       {authSuccessMessage && (
         <p className="success-message">{authSuccessMessage}</p>
       )}
-      {authErrorMessage && (
-        <p className="error-message">{authErrorMessage}</p>
-      )}
+      {authErrorMessage && <p className="error-message">{authErrorMessage}</p>}
+
+      <div className="login-redirect">
+        <p>Don't have an account?</p>
+        <a href="/" className="login-link">
+          Click here to register
+        </a>
+      </div>
+
     </div>
   );
 };

@@ -35,7 +35,6 @@ const tokenDecode = (token) => {
 const getToken = localStorage.getItem("token");
 if (getToken) {
   const getInfo = tokenDecode(getToken);
-  console.log(getInfo);
   if (getInfo) {
     initialState.currentUser = {
       name: getInfo.name,
@@ -44,7 +43,7 @@ if (getToken) {
     };
     initialState.authenticate = true;
   } else {
-    localStorage.removeItem("token"); // Clear expired token
+    localStorage.removeItem("token");
   }
 }
 
@@ -56,7 +55,7 @@ export const AuthReducer = (state = initialState, action) => {
     case REGISTRATION_SUCCESS:
       return {
         ...state,
-        authSuccessMessage: payload.successMessage,
+        regSuccessMessage: payload.successMessage,
       };
 
     /* Login Error */
@@ -92,7 +91,8 @@ export const AuthReducer = (state = initialState, action) => {
       localStorage.removeItem("token"); // Remove token from localStorage
       return {
         ...state,
-        authSuccessMessage: "Logout successful!",
+        regSuccessMessage: null,
+        authSuccessMessage: null,
         authErrorMessage: null,
         token: null,
         authenticate: false,
@@ -125,6 +125,7 @@ export const AuthReducer = (state = initialState, action) => {
       console.log("here---");
       return {
         ...state,
+        regSuccessMessage:null,
         authSuccessMessage: null,
         authErrorMessage: null,
       };

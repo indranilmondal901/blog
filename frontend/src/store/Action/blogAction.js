@@ -100,7 +100,7 @@ export const updateBlog = (blogId, updatedData) => async (dispatch) => {
 // Action to delete a blog
 export const deleteBlog = (blogId) => async (dispatch) => {
   try {
-    const response = await axios.delete(`${SERVER_URL}/blog/${blogId}`);
+    const response = await axios.delete(`${SERVER_URL}/blog/delete-Blog/${blogId}`);
     dispatch({
       type: BLOG_DELETE_SUCESS,
       payload: {
