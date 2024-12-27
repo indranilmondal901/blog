@@ -40,7 +40,7 @@ export const getAllBlogs = () => async (dispatch) => {
 // Action to get a single blog
 export const getBlogDetails = (blogId) => async (dispatch) => {
   try {
-    const response = await axios.post(`${SERVER_URL}/blog/get-blog-details`,{blogId});
+    const response = await axios.get(`${SERVER_URL}/blog/get-blog-details/${blogId}`);
     dispatch({
       type: BLOG_GET_SUCESS,
       payload: {

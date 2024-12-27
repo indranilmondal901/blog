@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 
 router.post("/add-blog", AddBlog);
 router.get("/all-blogs",GetAllBlogs);
-router.post("/get-blog-details", GetBlogDetails);//details with comments
+router.get("/get-blog-details/:blogId", GetBlogDetails);//details with comments
 router.delete("/delete-Blog/:blogId", DeleteBlog);
 router.post("/add-comment", AddComment);
 

@@ -61,8 +61,8 @@ const GetAllBlogs = async (req, res, next) => {
 /* Get Blog Details (with comments) */
 const GetBlogDetails = async (req, res, next) => {
   try {
-    const { blogId } = req.body;
-console.log(blogId);
+    const { blogId } = req.params;
+
     const blog = await BlogModel.findOne({ _id: blogId }).populate("author");
     console.log(blog);
     // Get blog details with comments
@@ -89,7 +89,6 @@ console.log(blogId);
 const DeleteBlog = async (req, res, next) => {
   try {
     const { blogId } = req.params;
-console.log(blogId);
     // Check if blog exists
     const blog = await BlogModel.findOne({ _id: blogId });
 
