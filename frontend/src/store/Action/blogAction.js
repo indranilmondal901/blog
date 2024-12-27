@@ -78,9 +78,9 @@ export const addBlog = (blogData) => async (dispatch) => {
 };
 
 // Action to update an existing blog
-export const updateBlog = (blogId, updatedData) => async (dispatch) => {
+export const updateBlog = (data) => async (dispatch) => {
   try {
-    const response = await axios.put(`${SERVER_URL}/blog/${blogId}`, updatedData);
+    const response = await axios.put(`${SERVER_URL}/blog/update-blog`, data);
     dispatch({
       type: BLOG_UPDATE_SUCESS,
       payload: {

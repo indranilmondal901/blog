@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllBlogs, addBlog, deleteBlog } from '../store/Action/blogAction'; // Assuming deleteBlog is implemented
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllBlogs,
+  addBlog,
+  deleteBlog,
+  updateBlog,
+} from "../store/Action/blogAction";
+import { Link } from "react-router-dom";
 
 const BlogList = () => {
   const dispatch = useDispatch();
@@ -9,10 +14,12 @@ const BlogList = () => {
   const { allBlogs } = useSelector((state) => state.Blog);
 
   const [showForm, setShowForm] = useState(false);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [editMode, setEditMode] = useState(false);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [editBlogId, setEditBlogId] = useState(null);
 
   useEffect(() => {
     dispatch(getAllBlogs());
@@ -20,24 +27,32 @@ const BlogList = () => {
 
   const handleFormToggle = () => {
     setShowForm(!showForm);
+    setEditMode(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const blogData = {
+      blogId: editBlogId,
       title,
       content,
       authorId: currentUser._id,
     };
 
-    dispatch(addBlog(blogData));
+    if (editMode) {
+      dispatch(updateBlog(blogData));
+    } else {
+      dispatch(addBlog(blogData));
+    }
+
     setShowForm(false);
-    setTitle('');
-    setContent('');
+    setTitle("");
+    setContent("");
+    setEditMode(false);
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this blog?')) {
+    if (window.confirm("Are you sure you want to delete this blog?")) {
       dispatch(deleteBlog(id));
     }
   };
@@ -47,15 +62,25 @@ const BlogList = () => {
   };
 
   const handleSortToggle = () => {
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
+  const handleEdit = (blog) => {
+    setEditMode(true);
+    setEditBlogId(blog._id);
+    setTitle(blog.title);
+    setContent(blog.content);
+    setShowForm(true);
   };
 
   const filteredBlogs = allBlogs
-    .filter((blog) =>
-      blog.title.toLowerCase().includes(searchTerm) || blog.content.toLowerCase().includes(searchTerm)
+    .filter(
+      (blog) =>
+        blog.title.toLowerCase().includes(searchTerm) ||
+        blog.content.toLowerCase().includes(searchTerm)
     )
     .sort((a, b) => {
-      if (sortOrder === 'asc') return a.title.localeCompare(b.title);
+      if (sortOrder === "asc") return a.title.localeCompare(b.title);
       return b.title.localeCompare(a.title);
     });
 
@@ -73,17 +98,21 @@ const BlogList = () => {
           className="blog-search"
         />
         <button onClick={handleSortToggle} className="blog-sort-button">
-          Sort: {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+          Sort: {sortOrder === "asc" ? "Ascending" : "Descending"}
         </button>
       </div>
 
+      {/* Add/Edit Blog Button */}
       <button onClick={handleFormToggle} className="blog-toggle-button">
-        {showForm ? 'Cancel' : 'Add New Blog'}
+        {showForm ? "Cancel" : "Add New Blog"}
       </button>
 
+      {/* Blog Creation/Editing Form */}
       {showForm && (
         <div className="blog-form-container">
-          <h2 className="form-title">Create New Blog</h2>
+          <h2 className="form-title">
+            {editMode ? "Edit Blog" : "Create New Blog"}
+          </h2>
           <form onSubmit={handleSubmit} className="blog-form">
             <div className="form-group">
               <label className="form-label">Title</label>
@@ -105,12 +134,13 @@ const BlogList = () => {
               ></textarea>
             </div>
             <button type="submit" className="form-submit-button">
-              Create Blog
+              {editMode ? "Update Blog" : "Create Blog"}
             </button>
           </form>
         </div>
       )}
 
+      {/* Blog List */}
       <ul className="blog-list">
         {filteredBlogs.map((blog) => (
           <li key={blog._id} className="blog-item">
@@ -121,12 +151,20 @@ const BlogList = () => {
                 Read More
               </Link>
               {currentUser._id === blog.author._id && (
-                <button
-                  onClick={() => handleDelete(blog._id)}
-                  className="blog-delete-button"
-                >
-                  Delete
-                </button>
+                <div>
+                  <button
+                    onClick={() => handleEdit(blog)}
+                    className="blog-edit-button"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(blog._id)}
+                    className="blog-delete-button"
+                  >
+                    Delete
+                  </button>
+                </div>
               )}
             </div>
           </li>

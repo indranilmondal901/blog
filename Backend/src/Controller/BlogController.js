@@ -119,11 +119,10 @@ const UpdateBlog = async (req, res, next) => {
     const { blogId, title, content } = req.body;
 
     // Check if blog exists
-    const { status, message, data: blog } = await IsBlogExist(blogId);
-    if (!status) {
-      return res.status(404).send({
-        message: message,
-      });
+    const blog = await BlogModel.findOne({_id:blogId});
+
+    if (!blog) {
+      return res.status(404).send({message: "Blog not found"});
     }
 
     // Update blog details
@@ -132,9 +131,10 @@ const UpdateBlog = async (req, res, next) => {
 
     await blog.save();
 
+    let blogData = await BlogModel.findOne({_id:blogId}).populate("author");
     return res.status(200).send({
       message: "Blog updated successfully.",
-      blog: blog,
+      blog: blogData,
     });
   } catch (error) {
     req.error = error;
